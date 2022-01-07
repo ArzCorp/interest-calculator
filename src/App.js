@@ -1,9 +1,10 @@
 import React from 'react'
+import CalculatorForm from './components/CalculatorForm'
 
 export default function App() {
 	return (
 		<div className="app">
-			<h1>React + Sass template</h1>
+			<CalculatorForm />
 		</div>
 	)
 }
