@@ -1,0 +1,14 @@
+.input-text {
+	color: black;
+	&__label {
+		display: block;
+		font-weight: 600;
+		margin-bottom: 5px;
+	}
+	&__input {
+		padding: 5px 10px;
+		min-width: 280px;
+		border-radius: 5px;
+		border: 1px solid black;
+	}
+}

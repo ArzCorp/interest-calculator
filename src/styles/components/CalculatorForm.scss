@@ -1,0 +1,12 @@
+.calculator-form {
+	padding: 10px 20px;
+	width: min-content;
+	background-color: gainsboro;
+	border-top: 1px solid palevioletred;
+	border-bottom: 1px solid darkblue;
+	&__form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+}
