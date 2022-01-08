@@ -10,5 +10,11 @@
 		min-width: 280px;
 		border-radius: 5px;
 		border: 1px solid black;
+		&--error {
+			display: block;
+			font-size: 13px;
+			color: red;
+			margin-top: 5px;
+		}
 	}
 }
