@@ -1,35 +1,35 @@
-import React from 'react'
-import * as yup from 'yup'
+import React, { useState } from 'react'
 import { useFormik } from 'formik'
+import * as yup from 'yup'
 
 import Button from './Button'
 import TextInput from './TextInput'
 
 export default function CalculatorForm() {
+	const [rate, setRate] = useState(null)
+
 	const { values, errors, handleChange, handleSubmit } = useFormik({
 		initialValues: {
-			Deposito: '',
-			Contribucion: '',
-			Anios: '',
-			Interes: '',
+			deposit: '',
+			contribution: '',
+			years: '',
+			rate: '',
 		},
-		onSubmit: (values) => {
-			console.log(values)
-		},
+		onSubmit: (values) => setRate(calculateRate(values)),
 		validationSchema: yup.object({
-			Deposito: yup
+			deposit: yup
 				.number()
 				.required('Campo requerido.')
 				.typeError('Solo números.'),
-			Contribucion: yup
+			contribution: yup
 				.number()
 				.required('Campo requerido.')
 				.typeError('Solo números.'),
-			Anios: yup
+			years: yup
 				.number()
 				.required('Campo requerido.')
 				.typeError('Solo números.'),
-			Interes: yup
+			rate: yup
 				.number()
 				.required('Campo requerido.')
 				.typeError('Solo números.')
@@ -37,39 +37,53 @@ export default function CalculatorForm() {
 				.max(1, 'El número máximo es uno.'),
 		}),
 	})
+
+	const calculateRate = ({ deposit, contribution, years, rate }) => {
+		let totalMoney = deposit
+		for (let i = 0; i < years; i++) {
+			totalMoney = (deposit + contribution) * (rate + 1)
+		}
+		return Math.round(totalMoney)
+	}
+
 	return (
 		<div className="calculator-form">
 			<form className="calculator-form__form" onSubmit={handleSubmit}>
 				<TextInput
-					name="Deposito"
+					name="deposit"
 					label="Deposito inicial:"
-					value={values.Deposito}
+					type="number"
+					value={values.deposit}
 					onChange={handleChange}
-					error={errors.Deposito}
+					error={errors.deposit}
 				/>
 				<TextInput
-					name="Contribucion"
+					name="contribution"
+					type="number"
 					label="Contribución mensual:"
-					value={values.Contribucion}
+					value={values.contribution}
 					onChange={handleChange}
-					error={errors.Contribucion}
+					error={errors.contribution}
 				/>
 				<TextInput
-					name="Anios"
+					name="years"
+					type="number"
 					label="Años:"
-					value={values.Anios}
+					value={values.years}
 					onChange={handleChange}
-					error={errors.Anios}
+					error={errors.years}
 				/>
 				<TextInput
-					name="Interes"
+					name="rate"
+					type="number"
 					label="Interés estimado:"
-					value={values.Interes}
+					value={values.rate}
 					onChange={handleChange}
-					error={errors.Interes}
+					error={errors.rate}
 				/>
-				<Button>Calcular</Button>
+				<Button type="submit">Calcular</Button>
 			</form>
+			{rate ? <p>Interes generado: {rate}</p> : null}
 		</div>
 	)
 }
