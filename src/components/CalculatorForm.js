@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { useFormik } from 'formik'
+import { Context } from '../context/Context'
 import * as yup from 'yup'
 
 import Button from './Button'
 import TextInput from './TextInput'
 
 export default function CalculatorForm() {
-	const [rate, setRate] = useState(null)
+	const { rate, setRate } = useContext(Context)
 
 	const { values, errors, handleChange, handleSubmit } = useFormik({
 		initialValues: {
 			deposit: '',
 			contribution: '',
 			years: '',
-			rate: '',
 		},
 		onSubmit: (values) => setRate(calculateRate(values)),
 		validationSchema: yup.object({
